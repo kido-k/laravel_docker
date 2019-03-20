@@ -1,17 +1,15 @@
 実行ディレクトリ
 ~/git/landrop/app01
 
-dockerコンテナの初期化
+dockerコンテナの起動
 docker-compose up -d nginx mysql workspace phpmyadmin
-
-docker開始
-docker-compose exec workspace bash
 
 動作確認
 docker ps
 
-docker仮想環境へのログイン
+dockerコンテナへのログイン
 docker-compose exec --user=laradock workspace bash
+docker-compose exec mysql bash
 
 >> laravelのインストール、mysqlへの実行などはこの環境から〜
 
@@ -19,10 +17,28 @@ docker-compose exec --user=laradock workspace bash
 exit
 
 dockerの終了
-docker-compose stop
+docker-compose down
 
 
 
 laravelのテスト
 -----------------------
 vendor/bin/phpunit tests/Feature/HomeTest.php
+
+
+
+mysqlの設定
+-----------------------
+-- 新しくデータベースを作成する
+CREATE DATABASE laradock;
+
+-- 新しくユーザーを作成する
+CREATE USER 'laradock'@'localhost' IDENTIFIED BY 'laradock';
+
+-- 作成したユーザーに作成したデータベースの操作権限を付与する
+GRANT ALL PRIVILEGES ON laradock.* TO 'laradock'@'localhost';
+
+-- 設定を反映する
+FLUSH PRIVILEGES;
+
+※dockerの場合は、laravelのenvファイルのdb_hostをmysqlというコンテナ名に設定する必要がある。
