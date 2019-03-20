@@ -22,3 +22,7 @@ dockerの終了
 docker-compose stop
 
 
+
+laravelのテスト
+-----------------------
+vendor/bin/phpunit tests/Feature/HomeTest.php
