@@ -2,7 +2,7 @@
 ~/git/landrop/app01
 
 dockerコンテナの起動
-docker-compose up -d nginx mysql workspace phpmyadmin
+docker-compose up -d nginx mysql sqlite workspace phpmyadmin
 
 動作確認
 docker ps
