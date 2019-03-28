@@ -18,14 +18,14 @@
 //Route::get('/home', function () {
 //    return view('home');
 //});
-
-Route::get('auth/register', 'Auth\RegisterController@showRegistrationForm');
-Route::post('auth/register', 'Auth\RegisterController@register');
-
-Route::get('auth/login', 'Auth\LoginController@showLoginForm');
-Route::post('auth/login', 'Auth\LoginController@login');
-
-Route::get('auth/logout', 'Auth\LoginController@logout');
+//
+//Route::get('auth/register', 'Auth\RegisterController@showRegistrationForm');
+//Route::post('auth/register', 'Auth\RegisterController@register');
+////
+//Route::get('auth/login', 'Auth\LoginController@showLoginForm');
+//Route::post('auth/login', 'Auth\LoginController@login');
+//
+//Route::get('auth/logout', 'Auth\LoginController@logout');
 
 Route::get('/{any?}', function () {
     return view('index');

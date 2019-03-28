@@ -46,7 +46,10 @@
         data () {
             return {
                 tab: 1,
-                loginForm: {/* 中略 */},
+                loginForm: {
+                    email: '',
+                    password: ''
+                },
                 registerForm: {
                     name: '',
                     email: '',
@@ -56,10 +59,18 @@
             }
         },
         methods: {
-            login () {/* 中略 */},
-            register () {
-                console.log(this.registerForm)
-            }
+            async register () {
+                // authストアのresigterアクションを呼び出す
+                await this.$store.dispatch('auth/register', this.registerForm)
+                // トップページに移動する
+                this.$router.push('/')
+            },
+            async login () {
+                // authストアのloginアクションを呼び出す
+                await this.$store.dispatch('auth/login', this.loginForm)
+                // トップページに移動する
+                this.$router.push('/')
+            },
         }
     }
 </script>

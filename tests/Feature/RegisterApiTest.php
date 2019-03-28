@@ -9,19 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterApiTest extends TestCase
 {
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     use RefreshDatabase;
 
     /**
@@ -31,8 +18,8 @@ class RegisterApiTest extends TestCase
     public function should_新しいユーザーを作成して返却する()
     {
         $data = [
-            'name' => 'test_user',
-            'email' => 'test_user@email.com',
+            'name' => 'test',
+            'email' => 'test@email.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ];
