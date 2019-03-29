@@ -45,7 +45,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        logger($user);
+//        logger($user);
         return $user;
     }
 

@@ -12,31 +12,40 @@ class LoginApiTest extends TestCase
 {
     use RefreshDatabase;
 
-//    public function setUp()
-//    {
-//        parent::setUp();
-//
-//        // テストユーザー作成
-//        $this->user = factory(User::class)->create();
-//    }
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // テストユーザー作成
+        $this->user = factory(User::class)->create([
+            'name' => 'testuser',
+            'email' => 'testuser@test.com',
+            'password' => 'password',
+        ]);
+    }
 
     /**
      * @test
      */
-    public function should_登録済みのユーザーを認証して返却する()
+    public function should_ログイン中のユーザーを返却する()
     {
-                // テストユーザー作成
-        $this->user = factory(User::class)->create();
-
-        $response = $this->json('POST', route('login'), [
-            'email' => $this->user->email,
-            'password' => 'secret',
-        ]);
+        $response = $this->actingAs($this->user)->json('GET', route('user'));
 
         $response
             ->assertStatus(200)
-            ->assertJson(['name' => $this->user->name]);
+            ->assertJson([
+                'name' => $this->user->name,
+            ]);
+    }
 
-        $this->assertAuthenticatedAs($this->user);
+    /**
+     * @test
+     */
+    public function should_ログインされていない場合は空文字を返却する()
+    {
+        $response = $this->json('GET', route('user'));
+
+        $response->assertStatus(200);
+        $this->assertEquals("", $response->content());
     }
 }
