@@ -5,12 +5,14 @@
                     class="tab__item"
                     :class="{'tab__item--active': tab === 1 }"
                     @click="tab = 1"
-            >Login</li>
+            >Login
+            </li>
             <li
                     class="tab__item"
                     :class="{'tab__item--active': tab === 2 }"
                     @click="tab = 2"
-            >Register</li>
+            >Register
+            </li>
         </ul>
         <div class="panel" v-show="tab === 1">
             <form class="form" @submit.prevent="login">
@@ -32,7 +34,8 @@
                 <label for="password">Password</label>
                 <input type="password" class="form__item" id="password" v-model="registerForm.password">
                 <label for="password-confirmation">Password (confirm)</label>
-                <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation">
+                <input type="password" class="form__item" id="password-confirmation"
+                       v-model="registerForm.password_confirmation">
                 <div class="form__button">
                     <button type="submit" class="button button--inverse">register</button>
                 </div>
@@ -43,7 +46,7 @@
 
 <script>
     export default {
-        data () {
+        data() {
             return {
                 tab: 1,
                 loginForm: {
@@ -59,18 +62,26 @@
             }
         },
         methods: {
-            async register () {
+            async register() {
                 // authストアのresigterアクションを呼び出す
-                await this.$store.dispatch('auth/register', this.registerForm)
+                await this.$store.dispatch('auth/register', this.registerForm);
                 // トップページに移動する
                 this.$router.push('/')
             },
-            async login () {
+            async login() {
                 // authストアのloginアクションを呼び出す
-                await this.$store.dispatch('auth/login', this.loginForm)
-                // トップページに移動する
-                this.$router.push('/')
+                await this.$store.dispatch('auth/login', this.loginForm);
+
+                if (this.apiStatus) {
+                    // トップページに移動する
+                    this.$router.push('/');
+                }
             },
-        }
+        },
+        computed: {
+            apiStatus() {
+                return this.$store.state.auth.apiStatus
+            }
+        },
     }
 </script>
